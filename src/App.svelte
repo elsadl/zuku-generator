@@ -1,5 +1,6 @@
 <script>
   import Shape from "./Shape.svelte";
+  import Library from "./Library.svelte";
 
   import { allColors } from "./elements/colors.js";
 
