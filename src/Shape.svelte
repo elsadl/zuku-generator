@@ -1,4 +1,4 @@
-<svelte:options immutable={true}/>
+<svelte:options immutable={true} />
 
 <script>
   import { getRandomInt } from "./utils";
@@ -17,7 +17,11 @@
     { name: "left", opposite: "right" },
   ];
 
-  $: color = $colors[getRandomInt($colors.length)];
+  $: randomColor = () => {
+    return $colors[getRandomInt($colors.length)];
+  };
+
+  $: cssVarStyles = `--random-color-one: ${randomColor().hex}; --random-color-two: ${randomColor().hex}; --random-color-three: ${randomColor().hex};`;
 
   if (!$gridComposition[row]) {
     let skel = [];
@@ -76,11 +80,12 @@
 </script>
 
 <g
+  style={cssVarStyles}
   transform="translate({100 * col}, {100 * row})"
   data-shape={shape.id}
   data-row={row}
   data-col={col}
-  fill={color.hex}
+  fill={randomColor().hex}
 >
   {@html shape.svg}
 </g>
