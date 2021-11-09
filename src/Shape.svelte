@@ -1,14 +1,13 @@
-<svelte:options immutable={true}/>
-
 <script>
-  import { getRandomInt } from "./utils";
+  import { afterUpdate, beforeUpdate } from "svelte";
 
-  import { shapes } from "./elements/shapes";
+  import { getRandomInt } from "./utils";
 
   import { gridComposition, gridSize, colors } from "./store";
 
   export let row;
   export let col;
+  export let shapes;
 
   const sides = [
     { name: "top", opposite: "bottom" },
@@ -16,6 +15,11 @@
     { name: "right", opposite: "left" },
     { name: "left", opposite: "right" },
   ];
+
+  beforeUpdate(() => {
+    // console.log("before update")
+    // console.log(shapes)
+  })
 
   $: color = $colors[getRandomInt($colors.length)];
 
@@ -84,3 +88,8 @@
 >
   {@html shape.svg}
 </g>
+
+<style>
+  path {
+  }
+</style>

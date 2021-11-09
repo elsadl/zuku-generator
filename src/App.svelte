@@ -1,6 +1,8 @@
 <script>
   import Shape from "./Shape.svelte";
 
+  import { shapes } from "./elements/shapes";
+
   import { allColors } from "./elements/colors.js";
 
   import { gridComposition, gridSize, colors } from "./store";
@@ -8,6 +10,20 @@
   let backgroundColor = "#FFFFFF";
 
   let renew = false;
+  let shapesCopy = [...shapes];
+
+  const emptyBlock = {
+    id: "empty",
+    svg: ``,
+    constraints: {
+      top: false,
+      right: false,
+      bottom: false,
+      left: false,
+    },
+  };
+
+  $: density = 1;
 
   $colors = allColors.filter((color) => color.hex != backgroundColor);
 
@@ -28,8 +44,21 @@
     $colors = allColors.filter((color) => color.hex != backgroundColor);
   };
 
+  const updateDensity = () => {
+    console.log("heho")
+    shapesCopy = [...shapes];
+    for (let i = 0; i < density; i++) {
+      shapesCopy.push(emptyBlock);
+    }
+    shapesCopy = [...shapesCopy]
+    console.log(shapesCopy);
+    generateNewPattern();
+  };
+
   const generateNewPattern = () => {
+    console.log(shapesCopy)
     initGrid();
+    console.log(shapesCopy)
     renew = true;
     setTimeout(() => {
       renew = false;
@@ -43,12 +72,9 @@
       // { width: $gridSize.cols * 100, height: $gridSize.rows * 100 }
     );
   };
-
-  $: cssVarStyles = `--bg-color: ${backgroundColor};
-  --grid-cols: repeat(${$gridSize.cols}, 100px);`;
 </script>
 
-<div id="global-container" style={cssVarStyles}>
+<div>
   <div id="options">
     <!-- taille de la grille -->
     <div id="grid-size">
@@ -76,6 +102,17 @@
         {/each}
       </ul>
     </div>
+    <div>
+      <label for="density">densité</label>
+      <input
+        type="range"
+        bind:value={density}
+        min="0"
+        max="50"
+        step="1"
+        on:input={updateDensity}
+      />
+    </div>
     <!-- exportation -->
     <div>
       <h4 class="button" on:click={generateNewPattern}>
@@ -99,7 +136,7 @@
       {#if !renew}
         {#each [...Array($gridSize.rows).keys()] as _, i}
           {#each [...Array($gridSize.cols).keys()] as _, j}
-            <Shape row={i} col={j} />
+            <Shape shapes={[...shapesCopy]} row={i} col={j} />
           {/each}
         {/each}
       {/if}
@@ -128,6 +165,11 @@
     justify-content: center;
     height: 100vh;
     width: 100vw;
+  }
+
+  #grid-container > * {
+    grid-row: 1/1;
+    grid-column: 1/1;
   }
 
   #bg-colors {

@@ -261,45 +261,5 @@ export const shapes = [
       bottom: false,
       left: true,
     },
-  },
-  {
-    id: 22,
-    svg: ``,
-    constraints: {
-      top: false,
-      right: false,
-      bottom: false,
-      left: false,
-    },
-  },
-  {
-    id: 23,
-    svg: ``,
-    constraints: {
-      top: false,
-      right: false,
-      bottom: false,
-      left: false,
-    },
-  },
-  {
-    id: 24,
-    svg: ``,
-    constraints: {
-      top: false,
-      right: false,
-      bottom: false,
-      left: false,
-    },
-  },
-  {
-    id: 25,
-    svg: ``,
-    constraints: {
-      top: false,
-      right: false,
-      bottom: false,
-      left: false,
-    },
-  },
+  }
 ];
