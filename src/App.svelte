@@ -5,12 +5,9 @@
 
   import { gridComposition, gridSize, colors } from "./store";
 
-  let theme = {
-    background: "#FFFFFF",
-    text: "#000000",
-  };
+  let backgroundColor = "#FFFFFF";
 
-  $colors = allColors.filter((color) => color.hex != theme.background);
+  $colors = allColors.filter((color) => color.hex != backgroundColor);
 
   const initGrid = (cols, rows) => {
     let row = [];
@@ -25,14 +22,20 @@
 
   initGrid($gridSize.cols, $gridSize.rows);
 
-  const changeTheme = (background, text) => {
-    theme.background = background;
-    theme.text = text;
-    $colors = allColors.filter((color) => color.hex != background);
+  const changeBackgroundColor = (newColor) => {
+    backgroundColor = newColor;
+    $colors = allColors.filter((color) => color.hex != backgroundColor);
   };
 
-  $: cssVarStyles = `--bg-color: ${theme.background};
-  --color: ${theme.text};
+  const exportSvg = () => {
+    svgExport.downloadSvg(
+      document.querySelector("#grid-container svg"),
+      "zuku-pattern",
+      // { width: $gridSize.cols * 100, height: $gridSize.rows * 100 }
+    );
+  };
+
+  $: cssVarStyles = `--bg-color: ${backgroundColor};
   --grid-cols: repeat(${$gridSize.cols}, 100px);`;
 </script>
 
@@ -53,24 +56,26 @@
     <ul id="bg-colors">
       {#each allColors as color}
         <li
-          on:click={() => changeTheme(color.hex, color.contrast)}
-          class={color.hex === theme.background ? "selected" : ""}
+          on:click={() => changeBackgroundColor(color.hex)}
+          class={color.hex === backgroundColor ? "selected" : ""}
         >
           {color.name}
         </li>
       {/each}
     </ul>
     <!-- exportation -->
+    <p on:click={exportSvg}>Exporter</p>
   </div>
 
   <div id="grid-container">
-    <div id="grid">
+    <svg width={$gridSize.cols * 100} height={$gridSize.rows * 100}>
+      <rect width={$gridSize.cols * 100} height={$gridSize.rows * 100} x=0 y=0 fill={backgroundColor}></rect>
       {#each [...Array($gridSize.rows).keys()] as _, i}
         {#each [...Array($gridSize.cols).keys()] as _, j}
           <Shape row={i} col={j} />
         {/each}
       {/each}
-    </div>
+    </svg>
   </div>
 </div>
 
@@ -78,11 +83,7 @@
   :global(body) {
     margin: 0;
     padding: 0;
-  }
-
-  #global-container {
-    background-color: var(--bg-color);
-    color: var(--color);
+    color: black;
   }
 
   #grid-container {
@@ -92,15 +93,10 @@
     height: 100vh;
     width: 100vw;
   }
-
-  #grid {
-    display: grid;
-    grid-template-columns: var(--grid-cols);
-  }
-
-  :global(#grid div) {
-    font-size: 0;
-  }
+  
+/* #grid-container svg {
+    background-color: var(--bg-color);
+  } */
 
   #grid-size {
     position: absolute;

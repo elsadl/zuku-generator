@@ -73,14 +73,12 @@
   $gridComposition[row][col] = shape.constraints;
 </script>
 
-<div data-shape={shape.id} data-row={row} data-col={col}>
-  <svg
-    width="100"
-    height="100"
-    viewBox="0 0 100 100"
-    fill={color.hex}
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    {@html shape.svg}
-  </svg>
-</div>
+<g
+  transform="translate({100 * col}, {100 * row})"
+  data-shape={shape.id}
+  data-row={row}
+  data-col={col}
+  fill={color.hex}
+>
+  {@html shape.svg}
+</g>
