@@ -252,6 +252,18 @@ export const shapes = [
   },
   {
     id: 21,
+    svg: `<path fill-rule="evenodd" clip-rule="evenodd" d="M100 32.1429L1.13523e-06 32.1429L0 67.8572L100 67.8572L100 32.1429Z"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M32.1429 3.8266e-05C32.1429 17.752 17.752 32.1429 -1.98701e-06 32.1429L0 67.8572C37.4765 67.8572 67.8571 37.4765 67.8571 3.6279e-05L32.1429 3.8266e-05Z"/>
+    `,
+    constraints: {
+      top: true,
+      right: true,
+      bottom: false,
+      left: true,
+    },
+  },
+  {
+    id: 22,
     svg: ``,
     constraints: {
       top: false,
@@ -261,15 +273,33 @@ export const shapes = [
     },
   },
   {
-    id: 22,
-    svg: `<path fill-rule="evenodd" clip-rule="evenodd" d="M100 32.1429L1.13523e-06 32.1429L0 67.8572L100 67.8572L100 32.1429Z"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M32.1429 3.8266e-05C32.1429 17.752 17.752 32.1429 -1.98701e-06 32.1429L0 67.8572C37.4765 67.8572 67.8571 37.4765 67.8571 3.6279e-05L32.1429 3.8266e-05Z"/>
-    `,
+    id: 23,
+    svg: ``,
     constraints: {
-      top: true,
-      right: true,
+      top: false,
+      right: false,
       bottom: false,
-      left: true,
+      left: false,
+    },
+  },
+  {
+    id: 24,
+    svg: ``,
+    constraints: {
+      top: false,
+      right: false,
+      bottom: false,
+      left: false,
+    },
+  },
+  {
+    id: 25,
+    svg: ``,
+    constraints: {
+      top: false,
+      right: false,
+      bottom: false,
+      left: false,
     },
   },
 ];
