@@ -51,27 +51,21 @@
 <div id="global-container" style={cssVarStyles}>
   <div id="options">
     <!-- taille de la grille -->
-    <div id="grid-size">
-      <h4>dimensions</h4>
-      <div class="flex">
-        <label for="">colonnes :</label>
-        <input type="number" bind:value={$gridSize.cols} min="0" max="60" />
-      </div>
-      <div class="flex">
-        <label for="">lignes :</label>
-        <input type="number" bind:value={$gridSize.rows} min="0" max="60" />
-      </div>
+    <div>
+      <input type="number" bind:value={$gridSize.cols} min="0" max="60" />
+      <span>x</span>
+      <input type="number" bind:value={$gridSize.rows} min="0" max="60" />
     </div>
     <!-- couleur de fond -->
     <div>
-      <h4>couleur de fond</h4>
       <ul id="bg-colors">
         {#each allColors as color}
           <li
             on:click={() => changeBackgroundColor(color.hex)}
             class={color.hex === backgroundColor ? "selected" : ""}
+            style="--background: {color.hex}; --contrast: {color.contrast}"
           >
-            {color.name}
+            <!-- {color.name} -->
           </li>
         {/each}
       </ul>
@@ -81,8 +75,7 @@
       <h4 class="button" on:click={generateNewPattern}>
         générer un nouveau motif
       </h4>
-    </div>
-    <div>
+      <br />
       <h4 class="button" on:click={exportSvg}>exporter au format svg</h4>
     </div>
   </div>
@@ -122,6 +115,11 @@
     padding-top: 1em;
   }
 
+  input {
+    font-size: 1.8em;
+    text-align: right;
+  }
+
   #grid-container {
     display: grid;
     align-items: center;
@@ -136,6 +134,11 @@
 
   #bg-colors li {
     cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid black;
+    background-color: var(--background);
   }
 
   #bg-colors li + li {
@@ -143,7 +146,7 @@
   }
 
   #bg-colors li.selected {
-    border-bottom: 1px solid;
+    border-bottom: 6px solid;
   }
 
   .button {
